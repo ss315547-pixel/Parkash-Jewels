@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sajan Silver Jewels — Portfolio</title>
+  <meta name="description" content="Professional jewellery showcase — gallery, product details, WhatsApp order button." />
+  <style>
+    /* ----------------------
+       Simple modern CSS: responsive, mobile-first
+       Edit colors, fonts and product images in the <script> product array below.
+       To change WhatsApp number: search for "YOUR_PHONE_NUMBER" in the file and replace with your number (country code + number, no + or 00). Example: 919812345678
+       ---------------------- */
+    :root{
+      --bg:#0f1724; /* deep navy */
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#c99a6b; /* warm gold */
+      --glass: rgba(255,255,255,0.04);
+      --radius:14px;
+      --maxw:1100px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#07101a);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:24px 16px;
+      display:flex;justify-content:center;
+    }
+    .wrap{width:100%;max-width:var(--maxw)}
+
+    header{display:flex;align-items:center;gap:16px;justify-content:space-between;margin-bottom:18px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#f0d5b8);display:flex;align-items:center;justify-content:center;color:#07101a;font-weight:700;font-size:20px;box-shadow:0 6px 18px rgba(201,154,107,0.14)}
+    h1{margin:0;font-size:20px}
+    .tag{color:var(--muted);font-size:13px}
+
+    nav{display:flex;gap:12px;align-items:center}
+    .btn{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:10px 14px;border-radius:12px;font-weight:600;cursor:pointer}
+    .cta{background:linear-gradient(90deg,var(--accent),#f5cfa8);color:#07101a}
+
+    /* hero */
+    .hero{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;padding:22px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:16px;margin-bottom:18px}
+    .hero-left{padding:4px}
+    .lead{color:var(--muted);margin-top:8px}
+
+    /* gallery */
+    .controls{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+    .filters{display:flex;gap:8px}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    @media(min-width:760px){.hero{grid-template-columns:1fr 360px}.grid{grid-template-columns:repeat(3,1fr)} }
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;gap:8px}
+    .img{height:200px;border-radius:10px;background-size:cover;background-position:center;box-shadow:0 8px 24px rgba(2,6,23,0.6)}
+    .pname{font-weight:700}
+    .muted{color:var(--muted);font-size:13px}
+    .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+
+    .badge{font-size:12px;background:rgba(255,255,255,0.03);padding:6px;border-radius:10px}
+
+    /* modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:16px}
+    .modal.show{display:flex}
+    .sheet{width:100%;max-width:920px;background:linear-gradient(180deg,var(--card),#07111b);border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,0.03);display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:820px){.sheet{grid-template-columns:1fr 360px}}
+    .thumbs{display:flex;gap:8px;overflow:auto}
+    .thumb{width:72px;height:72px;border-radius:10px;background-size:cover;background-position:center;border:2px solid transparent}
+    .thumb.active{border-color:var(--accent)}
+
+    /* footer */
+    footer{margin-top:18px;padding:12px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* tiny helpers */
+    .center{display:flex;align-items:center;justify-content:center}
+    .hidden{display:none}
+
+    /* nice hover */
+    .card:hover{transform:translateY(-6px);transition:all 220ms ease}
+    .btn:active{transform:translateY(2px)}
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header>
+      <div class="brand">
+        <div class="logo">SS</div>
+        <div>
+          <h1>Sajan Silver Jewels</h1>
+          <div class="tag">Fine Silver & Gold | Custom Orders | WhatsApp Orders</div>
+        </div>
+      </div>
+      <nav>
+        <button class="btn" onclick="scrollToSection('gallery')">Collection</button>
+        <button class="btn" onclick="scrollToSection('about')">About</button>
+        <a class="btn cta" id="whatsTop" href="#" target="_blank">Message on WhatsApp</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-left">
+          <h2 style="margin:0;font-size:28px">Modern jewellery — handcrafted, honest pricing</h2>
+          <p class="lead">Browse our curated collection of rings, chains and pendants. Click a product to view details and order directly on WhatsApp.</p>
+
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+            <div class="card" style="padding:12px;min-width:220px">
+              <div style="font-size:12px;color:var(--muted)">How we price</div>
+              <div style="font-weight:700;margin-top:6px">Rate per gram + making %</div>
+              <div class="muted" style="margin-top:6px">Final price confirmed in WhatsApp chat as rates change daily.</div>
+            </div>
+
+            <div class="card" style="padding:12px;min-width:220px">
+              <div style="font-size:12px;color:var(--muted)">Custom orders</div>
+              <div style="font-weight:700;margin-top:6px">Design tweaks & bulk orders</div>
+              <div class="muted" style="margin-top:6px">Message on WhatsApp to discuss weight and making charges.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="padding:8px">
+          <div style="background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:14px;border-radius:12px;max-width:360px">
+            <div style="font-size:13px;color:var(--muted)">Featured</div>
+            <div style="display:flex;gap:12px;margin-top:12px">
+              <div style="flex:1">
+                <div style="height:160px;border-radius:10px;background-image:url('https://images.unsplash.com/photo-1537123546611-2b68a36f7f61?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=7b21b8e4c2d0e4d1c4a1d5b7b9de6c6b');background-size:cover;background-position:center"></div>
+              </div>
+              <div style="flex:1.1">
+                <div style="font-weight:700">Classic Silver Chain</div>
+                <div class="muted" style="margin-top:6px">Elegant 925 sterling finish — customizable weight</div>
+                <div style="margin-top:10px;display:flex;gap:8px">
+                  <button class="btn" onclick="openProduct(1)">View</button>
+                  <a class="btn cta" id="whatsFeatured" href="#" target="_blank">Order on WhatsApp</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" style="margin-top:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <h3 style="margin:0">Collection</h3>
+          <div class="controls">
+            <div class="filters">
+              <button class="btn" onclick="filterCat('all')">All</button>
+              <button class="btn" onclick="filterCat('rings')">Rings</button>
+              <button class="btn" onclick="filterCat('chains')">Chains</button>
+              <button class="btn" onclick="filterCat('pendants')">Pendants</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid" id="productsGrid">
+          <!-- Products injected by JS -->
+        </div>
+      </section>
+
+      <!-- Modal / product detail -->
+      <div class="modal" id="modal">
+        <div class="sheet">
+          <div>
+            <div id="modalImg" class="img" style="height:360px;border-radius:12px"></div>
+            <div style="display:flex;gap:12px;margin-top:8px;align-items:center">
+              <div style="flex:1">
+                <div id="modalTitle" style="font-weight:800;font-size:18px"></div>
+                <div id="modalSub" class="muted" style="margin-top:6px"></div>
+              </div>
+              <div style="display:flex;gap:8px">
+                <button class="btn" onclick="closeModal()">Close</button>
+                <a class="btn cta" id="whatsModal" href="#" target="_blank">Message on WhatsApp</a>
+              </div>
+            </div>
+            <div style="margin-top:12px;color:var(--muted)" id="modalDesc"></div>
+          </div>
+
+          <aside>
+            <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:12px">
+              <div style="font-size:13px;color:var(--muted)">Details</div>
+              <div style="font-weight:700;margin-top:8px" id="modalWeight">Weight: —</div>
+              <div class="muted" id="modalMaking">Making: —</div>
+
+              <div style="margin-top:12px">
+                <div style="font-size:13px;color:var(--muted)">Want exact price?</div>
+                <div class="muted">Tap the WhatsApp button to request today’s rate for weight and final price confirmation.</div>
+              </div>
+
+              <div style="margin-top:14px;display:flex;gap:8px">
+                <a class="btn cta" id="whatsModalBuy" href="#" target="_blank">Order via WhatsApp</a>
+              </div>
+            </div>
+
+            <div style="margin-top:12px;padding:12px;background:rgba(255,255,255,0.02);border-radius:12px">
+              <div style="font-size:13px;color:var(--muted)">Need custom work?</div>
+              <div class="muted" style="margin-top:6px">Message us with design reference and required grams. We reply fast.</div>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <section id="about" style="margin-top:18px">
+        <div class="card">
+          <h3 style="margin:0">About Sajan Silver Jewels</h3>
+          <div class="muted" style="margin-top:6px">Handcrafted silver & gold plated pieces. Trusted since 2018. Bulk & custom orders welcome.</div>
+          <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+            <div class="badge">925 Sterling Options</div>
+            <div class="badge">Custom Engraving</div>
+            <div class="badge">Wholesale Prices</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      © <span id="year"></span> Sajan Silver Jewels — Message on WhatsApp to confirm final rate and place order.
+    </footer>
+
+  </div>
+
+  <script>
+    // --------- EDIT THESE SETTINGS ----------
+    // Replace YOUR_PHONE_NUMBER with your number including country code.
+    // Example India: 919812345678
+    const PHONE = 'YOUR_PHONE_NUMBER';
+
+    // Product data: update name, category, images, short description, sample weight
+    const PRODUCTS = [
+      {id:1,name:'Classic Silver Chain',cat:'chains',img:'https://images.unsplash.com/photo-1600180758893-72dc6a11e4ed?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&s=5a8b7c4993d6d3a3f8a2b9cbe0a9d4c2',short:'Elegant 925 sterling finish',desc:'Solid handcrafted silver chain. Custom lengths available.',weight:'Varies',making:'10% - 18%'},
+      {id:2,name:'Floral Silver Ring',cat:'rings',img:'https://images.unsplash.com/photo-1549576490-b0b4831ef60a?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&s=6f2ef37a4e7e8e3a4b5b6c7d8e9f0a1b',short:'Delicate floral motif',desc:'Classic floral design ring, available in multiple sizes.',weight:'3–6 g',making:'12% - 20%'},
+      {id:3,name:'Minimal Pendant',cat:'pendants',img:'https://images.unsplash.com/photo-1606312619342-45b6b1b0a5cf?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&s=e3c2b1a7d8f2c0b4a6b9d3c2f4e7a9a0',short:'Sleek modern pendant',desc:'Polished pendant with a clean silhouette.',weight:'1.5–4 g',making:'10% - 18%'},
+      {id:4,name:'Statement Silver Bangle',cat:'chains',img:'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&s=3b7d9b0c4e2f3a5b6c7d8e9f0a1b2c3d',short:'Bold handcrafted bangle',desc:'Solid bangle with high-polish finish, sizes available.',weight:'15–30 g',making:'8% - 15%'},
+      {id:5,name:'Tiny Stud Earrings',cat:'pendants',img:'https://images.unsplash.com/photo-1543968996-8d3e6b0c4a30?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&s=7b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e',short:'Everyday stud pair',desc:'Comfortable and lightweight stud earrings.',weight:'1–2 g',making:'10% - 12%'},
+    ];
+
+    // ---------- END EDITS ----------
+
+    // small helpers
+    const grid = document.getElementById('productsGrid');
+    const yearEl = document.getElementById('year');
+    yearEl.textContent = new Date().getFullYear();
+
+    // generate product cards
+    function renderProducts(list){
+      grid.innerHTML='';
+      for(const p of list){
+        const card = document.createElement('div'); card.className='card';
+        card.innerHTML = `
+          <div class="img" style="background-image:url('${p.img}')"></div>
+          <div>
+            <div class="pname">${p.name}</div>
+            <div class="muted" style="margin-top:6px">${p.short}</div>
+            <div class="row" style="margin-top:8px">
+              <div class="badge">${p.weight}</div>
+              <div style="display:flex;gap:8px">
+                <button class="btn" onclick="openProduct(${p.id})">View</button>
+                <a class="btn cta" href="${waLink(p)}" target="_blank">Order</a>
+              </div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      }
+    }
+
+    function waLink(product){
+      // build message with product code & name
+      const text = encodeURIComponent(`Hello, I want to order:\nProduct: ${product.name || ''}\nProduct ID: ${product.id || ''}\nPlease send today\'s rate and final price.\nThanks!`);
+      return `https://wa.me/${PHONE}?text=${text}`;
+    }
+
+    // when products array is used for links, we need object; keeping both id and full object
+    function findById(id){return PRODUCTS.find(x=>x.id===id)}
+
+    function openProduct(id){
+      const p = findById(id);
+      if(!p) return;
+      document.getElementById('modalImg').style.backgroundImage = `url('${p.img}')`;
+      document.getElementById('modalTitle').textContent = p.name;
+      document.getElementById('modalSub').textContent = p.short;
+      document.getElementById('modalDesc').textContent = p.desc;
+      document.getElementById('modalWeight').textContent = 'Weight: ' + (p.weight || 'Varies');
+      document.getElementById('modalMaking').textContent = 'Making: ' + (p.making || 'Defined on request');
+
+      const wa = `https://wa.me/${PHONE}?text=` + encodeURIComponent(`Hello, I want to order:%0AProduct: ${p.name}%0AProduct ID: ${p.id}%0APlease send today's rate and final price.%0AThanks!`);
+      document.getElementById('whatsModal').href = wa;
+      document.getElementById('whatsModalBuy').href = wa;
+      document.getElementById('modal').classList.add('show');
+    }
+
+    function closeModal(){document.getElementById('modal').classList.remove('show')}
+
+    function filterCat(cat){
+      if(cat==='all') renderProducts(PRODUCTS);
+      else renderProducts(PRODUCTS.filter(p=>p.cat===cat));
+      window.scrollTo({top:document.getElementById('gallery').offsetTop - 20,behavior:'smooth'});
+    }
+
+    function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'})}
+
+    // init
+    renderProducts(PRODUCTS);
+
+    // top WhatsApp links
+    function setTopWhats(){
+      const commonText = encodeURIComponent('Hello, I saw your collection on the website. Please share today\'s rate and availability.');
+      const link = `https://wa.me/${PHONE}?text=${commonText}`;
+      document.getElementById('whatsTop').href = link;
+      document.getElementById('whatsFeatured').href = `https://wa.me/${PHONE}?text=`+encodeURIComponent('Hello, I am interested in the Featured product. Please send today\'s rate.');
+    }
+    setTopWhats();
+
+    // small protection: warn user to edit phone number
+    if(PHONE==='YOUR_PHONE_NUMBER'){
+      alert('⚠️ Please edit the HTML file: replace YOUR_PHONE_NUMBER with your full phone number including country code (example: 919812345678). Without this, WhatsApp links will not work.');
+    }
+
+  </script>
+</body>
+</html>
